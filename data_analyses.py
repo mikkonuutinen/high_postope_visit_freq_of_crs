@@ -1,7 +1,6 @@
 #%%
 
 #%%
-# Luetaan kirjastot
 import pandas as pd
 import os
 import datetime
@@ -14,19 +13,14 @@ import pickle
 from sklearn import tree
 pd.options.mode.chained_assignment = None 
 
-
 data_path = 'set_your_path'
-
 # read data file
 # All variables are processed into data_file.pkl
 with open('data_file.pkl', 'rb') as f:
     df_data = pickle.load(f)
 
-
-
 #%%
 # HELPER FUNCTIONS
-
 def calc_desc_stats(df, variables_sel, variables_sel_names, titles_row, titles_name, df_column_names, variable_diff, group_column):
     import scipy.stats as stats
 
@@ -201,10 +195,8 @@ def mean_confidence_interval(data, confidence=0.95):
 
 
 
-
-
 #%%
-var_sel = [  # set your variable names
+var_sel = [  # set your variable names here
 'ika_leikkaus1',
 'sukupuoli_f',
 'astma',
@@ -265,7 +257,6 @@ df_stats.to_csv(data_path+'/table01_stats_'+date+'.csv')
 
 
 #%%
-
 #------------------
 # Table 2
 # RANK VARIABLES (AUC, linear regression)
@@ -273,12 +264,9 @@ y = X['early_relapse_3_or_more_visits_6months']
 X_norm=(X[var_sel]-X[var_sel].mean())/X[var_sel].std()
 variables_best, df_univariate_results = rank_variables(X_norm, y, var_sel, var_sel, test_set_size = 100, n_iterations = 10)
 df_univariate_auc_sorted = df_univariate_results.sort_values(by=['AUC'],ascending=False).reset_index(drop=True)
-
 df_univariate_auc_sorted.to_csv(data_path+'/table02_univariate_auc_'+date+'.csv')
 
-
 #%%
-
 #--------------------
 # Table 3
 # RANK VARIABLES (OR-VALUES)
@@ -343,7 +331,6 @@ df_odds.to_csv(data_path+'/table03_OR_'+date+'.csv')
 
 
 #%%
-
 #-----------------------
 # Table 4 and Fig 1
 # DECISION TREE CLUSTERING
